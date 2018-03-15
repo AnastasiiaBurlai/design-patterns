@@ -23,20 +23,10 @@ public class DriverFactory {
 
     public static final String DRIVERS_PATH = new File("").getAbsolutePath() + "/src/test/resources/drivers/";
 
-    private List<WebDriver> drivers = new ArrayList<>();
-
-    public static void killAllRunDrivers() {
-        File driversFolder = new File(DRIVERS_PATH);
-        try {
-            for (File driver : Objects.requireNonNull(driversFolder.listFiles()))
-                Runtime.getRuntime().exec("taskkill /F /IM " + driver.getName());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    private WebDriver driver;
 
     public WebDriver getDriver() {
-        WebDriver driver;
+        if (driver != null) return driver;
 
         switch (TestProperties.getBrowserType()) {
             case BrowserType.FIREFOX:
@@ -50,11 +40,17 @@ public class DriverFactory {
                 break;
         }
 
-        drivers.add(driver);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+        setDefaultTimeouts();
         return driver;
+    }
+
+    public void setDefaultTimeouts() {
+        if(driver != null) {
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+            driver.manage().timeouts().setScriptTimeout(10, TimeUnit.SECONDS);
+        }
     }
 
     private WebDriver initChrome() {
@@ -77,12 +73,10 @@ public class DriverFactory {
         return new InternetExplorerDriver();
     }
 
-    public void closeAll() {
-        for (WebDriver driver : drivers) {
-            if (driver != null) {
-                driver.quit();
-            }
+    public void close() {
+        if (driver != null) {
+            driver.quit();
+            driver = null;
         }
-        drivers.clear();
     }
 }

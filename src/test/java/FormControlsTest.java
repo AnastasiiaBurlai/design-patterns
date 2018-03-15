@@ -25,6 +25,12 @@ public class FormControlsTest extends BaseTest {
         assertTrue(checkboxOverviewPage.checkbox.isChecked());
         assertEquals(checkboxOverviewPage.checkbox.getLabelText(), "Check me!");
 
+        checkboxOverviewPage.viewSourceButton.click();
+        checkboxOverviewPage.waitLoading();
+        //this is WebElement - to check that both custom elements and selenium WebElement decoration works
+        assertTrue(checkboxOverviewPage.source.isDisplayed());
+        assertEquals(checkboxOverviewPage.source.getText(), "<mat-checkbox>Check me!</mat-checkbox>");
+
         checkboxOverviewPage.goBack();
         formControlsPage.checkOpened();
     }
