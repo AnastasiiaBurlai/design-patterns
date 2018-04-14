@@ -12,3 +12,7 @@ dependencies {
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.9.1'
     compile group: 'org.seleniumhq.selenium', name: 'selenium-support', version: '3.9.1'
 }
+
+test{
+    useTestNG()
+}
