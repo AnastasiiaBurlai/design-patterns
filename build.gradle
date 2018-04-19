@@ -14,5 +14,14 @@ dependencies {
 }
 
 test{
-    useTestNG()
+	def pathToTestXml = "src/test/resources/testng.xml"
+ 
+    useTestNG(){
+		suites pathToTestXml
+        useDefaultListeners = true
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+	}
+
 }

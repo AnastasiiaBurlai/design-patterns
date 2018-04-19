@@ -3,4 +3,5 @@
 /.logs/
 classes/
 out/
+/build/
 *.iml
