@@ -1,3 +1,4 @@
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import page_objects.CheckboxOverviewPage;
 import page_objects.FormControlsPage;
@@ -7,7 +8,7 @@ import static org.testng.Assert.*;
 public class FormControlsTest extends BaseTest {
 
     @Test
-    public void verifyAngularCheckBox(){
+    public void verifyAngularCheckBox() {
         FormControlsPage formControlsPage = new FormControlsPage();
         formControlsPage.open();
         formControlsPage.checkOpened();
@@ -17,7 +18,7 @@ public class FormControlsTest extends BaseTest {
         formControlsPage.selectCard("Checkbox");
         CheckboxOverviewPage checkboxOverviewPage = new CheckboxOverviewPage();
         checkboxOverviewPage.checkOpened();
-        assertEquals(checkboxOverviewPage.tabMenu.getTextItems(), new String[] {"OVERVIEW", "API", "EXAMPLES"});
+        assertEquals(checkboxOverviewPage.tabMenu.getTextItems(), new String[]{"OVERVIEW", "API", "EXAMPLES"});
         assertTrue(formControlsPage.menu.getMenuBlock(formControlsMenuBlock).isExpanded());
 
         assertFalse(checkboxOverviewPage.checkbox.isChecked());
@@ -33,5 +34,10 @@ public class FormControlsTest extends BaseTest {
 
         checkboxOverviewPage.goBack();
         formControlsPage.checkOpened();
+    }
+
+    @Test
+    public void FailingTest() {
+        Assert.fail("This test is failed on purpose");
     }
 }
