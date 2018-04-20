@@ -7,7 +7,7 @@ import static org.testng.Assert.*;
 
 public class FormControlsTest extends BaseTest {
 
-    @Test
+    @Test(groups = "Regression_suite1")
     public void verifyAngularCheckBox() {
         FormControlsPage formControlsPage = new FormControlsPage();
         formControlsPage.open();
@@ -34,10 +34,5 @@ public class FormControlsTest extends BaseTest {
 
         checkboxOverviewPage.goBack();
         formControlsPage.checkOpened();
-    }
-
-    @Test
-    public void FailingTest() {
-        Assert.fail("This test is failed on purpose");
     }
 }

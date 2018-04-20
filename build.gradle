@@ -14,14 +14,12 @@ dependencies {
 }
 
 test{
-	def pathToTestXml = "src/test/resources/testng.xml"
- 
+    def group = System.getProperty('group')
     useTestNG(){
-		suites pathToTestXml
+        includeGroups group
         useDefaultListeners = true
         testLogging {
             events "passed", "skipped", "failed"
         }
 	}
-
 }
